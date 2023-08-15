@@ -7,6 +7,8 @@ public class Calculation_history : MonoBehaviour
 {
     [Header("Obj Main")]
     public App app;
+    public Transform area_body_menu_portrait;
+    public Transform area_body_menu_landspace;
 
     [Header("History")]
     public Sprite icon_history;
@@ -16,8 +18,6 @@ public class Calculation_history : MonoBehaviour
     private List<string> h_s_rel=new List<string>();
 
     [Header("Memo")]
-    public Transform area_body_menu_portrait;
-    public Transform area_body_menu_landspace;
     public Sprite icon_memo;
     public Sprite icon_memo_summation;
     public Sprite icon_memo_subtraction;
