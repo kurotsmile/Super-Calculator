@@ -1,2 +1,2 @@
 # Super-Calculator
-This pocket calculator is very superior with a full range of calculation functions
+This pocket calculator is very superior with a full range of calculation functions, visual description of calculations such as powers, fractions in the form of mathematical notation, this is an outstanding feature for suitable applications to replace. Replace default calculator apps on mobile devices. With a history of calculations and the basic interface of a pocket calculator, you can keep a close eye on your calculations. In addition, the application provides three display modes that are simple, complete and super for users to use in each appropriate case. The functions are presented in an intuitive and simple way that will help you work and study better
