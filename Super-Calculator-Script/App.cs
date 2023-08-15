@@ -36,8 +36,6 @@ public class App : MonoBehaviour
     private void Start()
     {
         this.carrot.Load_Carrot(this.GetComponent<Calculator_mode>().check_exit_app);
-        this.carrot.shop.onCarrotPaySuccess = this.GetComponent<Calculator_mode>().on_success_carrot_pay;
-        this.carrot.shop.onCarrotRestoreSuccess = this.GetComponent<Calculator_mode>().on_success_carrot_restore;
         this.GetComponent<Calculator_mode>().check_roate_scene();
         this.carrot.clear_contain(this.area_Panel_calculation);
         this.carrot.clear_contain(this.area_Panel_result);
@@ -268,7 +266,7 @@ public class App : MonoBehaviour
 
         this.is_zero = true;
         this.GetComponent<Calculator_mode>().play_sound(2);
-        this.GetComponent<Calculator_mode>().check_and_show_ads();
+        this.carrot.ads.show_ads_Interstitial();
         this.block_btn_func_x(true);
     }
 

@@ -5,7 +5,8 @@ using UnityEngine.UI;
 
 public class Calculation_history : MonoBehaviour
 {
-    public Carrot.Carrot carrot;
+    [Header("Obj Main")]
+    public App app;
 
     [Header("History")]
     public Sprite icon_history;
@@ -24,6 +25,7 @@ public class Calculation_history : MonoBehaviour
 
     private int leng_memo = 0;
     private int sel_index_memo = -1;
+    private Carrot.Carrot_Box box;
 
     void Start()
     {
@@ -40,15 +42,13 @@ public class Calculation_history : MonoBehaviour
 
     public void show_history()
     {
-        this.carrot.show_list_box("Calculation History", this.icon_history);
-        for(int i = this.h_s_cal.Count-1; i>=0; i--)
+        this.box=this.app.carrot.Create_Box("Calculation History", this.icon_history);
+        this.box.set_icon(this.icon_history);
+        for (int i = this.h_s_cal.Count-1; i>=0; i--)
         {
-            GameObject cal_history_obj = Instantiate(this.prefab_cal_history);
-            cal_history_obj.transform.SetParent(this.carrot.area_body_box);
-            cal_history_obj.transform.localPosition = new Vector3(cal_history_obj.transform.localPosition.x, cal_history_obj.transform.localPosition.y, cal_history_obj.transform.localPosition.z);
-            cal_history_obj.transform.localScale = new Vector3(1f, 1f,1f);
-            cal_history_obj.GetComponent<Cal_history_item>().txt_cal.text = this.h_s_cal[i];
-            cal_history_obj.GetComponent<Cal_history_item>().txt_result.text = "="+this.h_s_rel[i];
+            Carrot.Carrot_Box_Item item_history = this.box.create_item("item_" + i);
+            item_history.set_title(this.h_s_cal[i]);
+            item_history.set_tip("=" + this.h_s_rel[i]);
         }
     }
 
@@ -62,16 +62,17 @@ public class Calculation_history : MonoBehaviour
 
     public void show_list_memo()
     {
-        this.carrot.show_list_box("Memo", this.icon_memo);
+        this.box=this.app.carrot.Create_Box("Memo", this.icon_memo);
         for(int i = this.leng_memo; i>=0; i--)
         {
             if (PlayerPrefs.GetString("memo_" + i, "") != "")
             {
-                GameObject obj_memo = Instantiate(this.memo_item_prefab);
-                obj_memo.transform.SetParent(this.carrot.area_body_box);
-                obj_memo.transform.localScale = new Vector3(1f, 1f, 1f);
-                obj_memo.GetComponent<Memo_item>().txt_result.text = PlayerPrefs.GetString("memo_" + i);
+                Carrot.Carrot_Box_Item item_memo = this.box.create_item("item_memo_" + i);
+                item_memo.set_title(PlayerPrefs.GetString("memo_" + i));
+                /*
+                obj_memo.GetComponent<Memo_item>().txt_result.text = ;
                 obj_memo.GetComponent<Memo_item>().index = i;
+                */
             }
         }
         this.GetComponent<Calculator_mode>().play_sound(1);
@@ -101,7 +102,7 @@ public class Calculation_history : MonoBehaviour
     {
         this.sel_index_memo = index_show;
         this.GetComponent<App>().show_result(PlayerPrefs.GetString("memo_" +index_show));
-        this.carrot.hide_box();
+        this.box.close();
         this.GetComponent<Calculator_mode>().play_sound(1);
     }
 

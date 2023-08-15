@@ -1,23 +1,17 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Advertisements;
-using UnityEngine.Purchasing;
 using UnityEngine.UI;
 
 public class Calculator_mode : MonoBehaviour
 {
-    [Header("Ads")]
-    public string ID_ads_unity = "4486311";
-    public string ID_ads_app_window_vungle= "61b84e22b28013ba23e272c3";
-    public string ID_ads_app_android_vungle= "61daef67f2e0e2c30164f5aa";
-    public string ID_ads_placement_window_vungle = "DEFAULT-8252319";
-    public string ID_ads_placement_android_vungle = "DEFAULT-5913801";
-    public string ID_ads_placement_unity = "Interstitial_Android";
-    private int count_ads = 0;
+    [Header("Main obj")]
+    public App app;
+
+    [Header("Setting")]
+    public Sprite icon_light;
+    public Sprite icon_theme;
+    public Sprite icon_memo;
 
     [Header("Mode Obj")]
-    public GameObject panel_setting;
     public GameObject panel_memo_bar_portaint;
     public GameObject panel_memo_bar_landspace;
     public GameObject[] btn_mode;
@@ -25,21 +19,6 @@ public class Calculator_mode : MonoBehaviour
     public GameObject[] btn_cal_supper;
     public GridLayoutGroup gridLayout_cal;
     public AudioSource[] sound;
-
-    [Header("Setting")]
-    public Sprite sp_sound_on;
-    public Sprite sp_sound_off;
-    public Sprite sp_light_on;
-    public Sprite sp_light_off;
-    public Sprite sp_memo_on;
-    public Sprite sp_memo_off;
-    public Text txt_setting_status_sound;
-    public Text txt_setting_status_light;
-    public Text txt_setting_status_memo;
-    public Image img_setting_status_sound;
-    public Image img_setting_status_light;
-    public Image img_setting_status_memo;
-    public GameObject panel_setting_remove_ads;
 
     [Header("Theme")]
     public GameObject panel_theme;
@@ -84,55 +63,22 @@ public class Calculator_mode : MonoBehaviour
     public Transform area_dashboard_portaint;
 
     private int sel_mode = 0;
-    private Carrot.Carrot carrot;
-    private bool is_sound=true;
     private bool is_light=true;
-    private bool is_ads = true;
     private bool is_memo = true;
 
     private void Start()
     {
-        if (PlayerPrefs.GetInt("is_ads", 0) == 0)
-        {
-            this.is_ads = true;
-
-#if UNITY_ANDROID
-            Advertisement.Initialize(this.ID_ads_unity, false);
-            Vungle.init(this.ID_ads_app_android_vungle);
-#elif UNITY_WSA_10_0 || UNITY_WINRT_8_1 || UNITY_METRO
-            Vungle.init(this.ID_ads_app_window_vungle);
-#endif
-
-            this.panel_setting_remove_ads.SetActive(true);
-            this.btn_mode[7].SetActive(true);
-            this.btn_mode[8].SetActive(false);
-        }
-        else
-        {
-            this.panel_setting_remove_ads.SetActive(false);
-            this.btn_mode[7].SetActive(false);
-            this.btn_mode[8].SetActive(true);
-            this.is_ads = false;
-        }
-
         this.sel_mode = PlayerPrefs.GetInt("sel_mode", 0);
 
         this.sel_index_theme = PlayerPrefs.GetInt("sel_index_theme", 0);
         this.sel_theme(this.sel_index_theme);
-
-        if (PlayerPrefs.GetInt("is_sound", 0) == 0) this.is_sound = true; else this.is_sound = false;
-        this.check_status_sound();
 
         if (PlayerPrefs.GetInt("is_light", 0) == 0) this.is_light = true; else this.is_light = false;
         this.check_status_light();
 
         if (PlayerPrefs.GetInt("is_memo", 1) == 0) this.is_memo = true; else this.is_memo = false;
         this.check_status_memo();
-
-        this.carrot = this.GetComponent<App>().carrot;
-        this.panel_setting.SetActive(false);
         this.panel_theme.SetActive(false);
-        
     }
 
     public void select_mod(int index_mode)
@@ -178,66 +124,30 @@ public class Calculator_mode : MonoBehaviour
 
     public void show_setting()
     {
-        this.play_sound(1);
-        this.panel_setting.SetActive(true);
-    }
+        Carrot.Carrot_Box box_setting=this.app.carrot.Create_Setting();
 
-    public void close_setting()
-    {
-        this.play_sound(1);
-        this.panel_setting.SetActive(false);
-    }
+        Carrot.Carrot_Box_Item item_light=box_setting.create_item("light_item");
+        item_light.set_icon(this.icon_light);
+        item_light.set_title("Backlight");
+        item_light.set_tip("Turn off or disable always wake screen mode");
+        item_light.set_act(() => this.change_status_light());
 
-    public void app_rate()
-    {
-        this.carrot.show_rate();
-    }
+        Carrot.Carrot_Box_Item item_theme = box_setting.create_item("item_theme");
+        item_theme.set_title("Pocket calculator theme");
+        item_theme.set_title("Change the look of the app to your liking");
+        item_theme.set_act(()=>this.show_theme());
 
-    public void app_list_other()
-    {
-        this.carrot.show_list_carrot_app();
-    }
-
-    public void app_share()
-    {
-        this.carrot.show_share();
+        Carrot.Carrot_Box_Item item_memo = box_setting.create_item("item_memo");
+        item_theme.set_title("Memo toolbar");
+        item_theme.set_title("Enable or disable the use of the memo bar");
+        item_theme.set_act(() => this.show_theme());
     }
 
     public void play_sound(int index_sound)
     {
-        if(this.is_sound) this.sound[index_sound].Play();
+        if(this.app.carrot.get_status_sound()) this.sound[index_sound].Play();
     }
 
-    public void change_status_sound()
-    {
-        if (this.is_sound)
-        {
-            PlayerPrefs.SetInt("is_sound", 1);
-            this.is_sound = false;
-        }
-        else
-        {
-            PlayerPrefs.SetInt("is_sound", 0);
-            this.is_sound = true;
-            this.play_sound(1);
-        }
-
-        this.check_status_sound();
-    }
-
-    private void check_status_sound()
-    {
-        if (this.is_sound)
-        {
-            this.img_setting_status_sound.sprite = this.sp_sound_on;
-            this.txt_setting_status_sound.text = "On";
-        }
-        else
-        {
-            this.img_setting_status_sound.sprite = this.sp_sound_off;
-            this.txt_setting_status_sound.text = "Off";
-        }
-    }
 
     public void change_status_light()
     {
@@ -260,14 +170,10 @@ public class Calculator_mode : MonoBehaviour
     {
         if (this.is_light)
         {
-            this.img_setting_status_light.sprite = this.sp_light_on;
-            this.txt_setting_status_light.text = "On";
             Screen.sleepTimeout = (int)SleepTimeout.NeverSleep;
         }
         else
         {
-            this.img_setting_status_light.sprite = this.sp_light_off;
-            this.txt_setting_status_light.text = "Off";
             Screen.sleepTimeout = 5000;
         }
     }
@@ -293,98 +199,25 @@ public class Calculator_mode : MonoBehaviour
     {
         if (this.is_memo)
         {
-            this.img_setting_status_memo.sprite = this.sp_memo_on;
-            this.txt_setting_status_memo.text = "On";
             this.panel_memo_bar_portaint.SetActive(true);
             this.panel_memo_bar_landspace.SetActive(true);
             if (this.sel_mode == 2) this.check_mode();
         }
         else
         {
-            this.img_setting_status_memo.sprite = this.sp_memo_off;
-            this.txt_setting_status_memo.text = "Off";
             this.panel_memo_bar_portaint.SetActive(false);
             this.panel_memo_bar_landspace.SetActive(false);
         }
     }
 
-    public void btn_buy_product(int index_p)
-    {
-        this.carrot.buy_product(index_p);
-        this.play_sound(1);
-    }
-
-    public void check_and_show_ads()
-    {
-        if (this.is_ads)
-        {
-            this.count_ads++;
-            if (this.count_ads >= 15)
-            {
-#if UNITY_ANDROID
-                if(Advertisement.IsReady(this.ID_ads_placement_unity))
-                    Advertisement.Show(this.ID_ads_placement_unity);
-                else
-                    Vungle.playAd(this.ID_ads_placement_android_vungle);
-
-#elif UNITY_WSA_10_0 || UNITY_WINRT_8_1 || UNITY_METRO
-                Vungle.playAd(this.ID_ads_placement_window_vungle);
-#endif
-                this.count_ads++;
-            }
-        }
-    }
 
     public void check_exit_app()
     {
         if (this.panel_theme.activeInHierarchy)
         {
             this.close_theme();
-            this.carrot.set_no_check_exit_app();
+            this.app.carrot.set_no_check_exit_app();
         }
-        else if (this.panel_setting.activeInHierarchy)
-        {
-            this.close_setting();
-            this.carrot.set_no_check_exit_app();
-        }
-    }
-
-    public void on_success_carrot_pay(string s_id)
-    {
-        if (s_id == this.carrot.shop.get_id_by_index(0))
-        {
-            this.carrot.show_msg(PlayerPrefs.GetString("shop", "Shop"), "Remove ads successfully");
-            this.in_app_removeAds();
-        }
-    }
-
-    public void on_success_carrot_restore(string[] arr_id)
-    {
-        for (int i = 0; i < arr_id.Length; i++)
-        {
-            string s_id_p = arr_id[i];
-            if (s_id_p == this.carrot.shop.get_id_by_index(0)) this.in_app_removeAds();
-        }
-    }
-
-    private void in_app_removeAds()
-    {
-        this.is_ads = false;
-        PlayerPrefs.SetInt("is_ads", 1);
-        this.panel_setting_remove_ads.SetActive(true);
-        this.btn_mode[7].SetActive(false);
-        this.btn_mode[8].SetActive(true);
-    }
-
-    public void buy_success(Product product)
-    {
-        this.on_success_carrot_pay(product.definition.id);
-    }
-
-    public void app_restore()
-    {
-        this.carrot.shop.restore_product();
-        this.play_sound(1);
     }
 
     public void show_theme()
@@ -547,6 +380,5 @@ public class Calculator_mode : MonoBehaviour
             this.Obj_btn_c.transform.SetSiblingIndex(25);
         }
 
- 
     }
 }
