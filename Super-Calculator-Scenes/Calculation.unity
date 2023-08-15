@@ -913,7 +913,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.000030517578, y: -0.025146484}
+  m_AnchoredPosition: {x: 0.000061035156, y: -0.025146484}
   m_SizeDelta: {x: 0, y: 0.05000305}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!114 &69714416
@@ -2932,7 +2932,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -31.255005}
+  m_AnchoredPosition: {x: 0, y: -31.25502}
   m_SizeDelta: {x: 0.0000076293945, y: -62.51001}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &392090383
@@ -3531,7 +3531,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 1, g: 1, b: 1, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -5672,7 +5672,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -10.299988}
+  m_AnchoredPosition: {x: 0, y: -10.300003}
   m_SizeDelta: {x: 0.0000076293945, y: 58.6}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &724779271
@@ -5761,6 +5761,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   carrot: {fileID: 2040132216}
+  mode: {fileID: 734071815}
   txt_result_debug: {fileID: 657669904}
   n_calculation_prefab: {fileID: 1226543934453507134, guid: e729a5ab7999b5d41b11a653aec72604, type: 3}
   exponential_cal_prefab: {fileID: 5490206949784143162, guid: a65e733613794a84fb7262ae31c417ad, type: 3}
@@ -5830,7 +5831,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f069bf0e41af7534bb2e36bd3dc7e451, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  app: {fileID: 0}
+  app: {fileID: 734071813}
   icon_history: {fileID: 21300000, guid: 58394627b4b2c5c4d91935548ab20b48, type: 3}
   img_icon_history: {fileID: 284728716}
   prefab_cal_history: {fileID: 262406955310486544, guid: 007c9a7b9ce799e41b1565eefc079313, type: 3}
@@ -5838,6 +5839,8 @@ MonoBehaviour:
   area_body_menu_landspace: {fileID: 1402337588}
   memo_item_prefab: {fileID: 5739277813753071463, guid: 0e64c65be849ca84fabf30a6f741b6ff, type: 3}
   icon_memo: {fileID: 21300000, guid: c2e8189d30f73f14692254808d6224f1, type: 3}
+  icon_memo_summation: {fileID: 21300000, guid: 15d2b4ff3a3a9f34fa9d45ea78ad4114, type: 3}
+  icon_memo_subtraction: {fileID: 21300000, guid: dd0c56d145ccf7a48afca8110b1c6ef4, type: 3}
   btn_memo:
   - {fileID: 1359154113}
   - {fileID: 1870201908}
@@ -5858,10 +5861,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   app: {fileID: 734071813}
-  icon_light: {fileID: 21300000, guid: beeaf341c35721a4784d4eb07f2bc7e3, type: 3}
+  icon_light_on: {fileID: 21300000, guid: beeaf341c35721a4784d4eb07f2bc7e3, type: 3}
+  icon_light_off: {fileID: 21300000, guid: 41dec1bc4f3d2ef4c9fa2c613ccc564e, type: 3}
   icon_theme: {fileID: 21300000, guid: 63edc2275bae06b4991803e0cf4495bb, type: 3}
   icon_theme_item: {fileID: 21300000, guid: a2159dafe0cbacb4daec599fed4971a9, type: 3}
-  icon_memo: {fileID: 21300000, guid: c2e8189d30f73f14692254808d6224f1, type: 3}
+  icon_memo_on: {fileID: 21300000, guid: c2e8189d30f73f14692254808d6224f1, type: 3}
+  icon_memo_off: {fileID: 21300000, guid: d88b57a8ea440ae428aa8c4db006d1c4, type: 3}
   panel_memo_bar_portaint: {fileID: 824730835}
   panel_memo_bar_landspace: {fileID: 1402337587}
   btn_mode:
@@ -10551,8 +10556,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 223.60675, y: -268.32816}
-  m_SizeDelta: {x: 447.21356, y: 536.6563}
+  m_AnchoredPosition: {x: 223.60678, y: -248.11815}
+  m_SizeDelta: {x: 447.21356, y: 496.2363}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1286216012
 CanvasRenderer:
@@ -10949,8 +10954,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -20.209991}
+  m_SizeDelta: {x: 0, y: -40.420002}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1310051075
 MonoBehaviour:
@@ -11686,7 +11691,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 734071815}
         m_TargetAssemblyTypeName: Calculator_mode, Assembly-CSharp
-        m_MethodName: app_share
+        m_MethodName: btn_share
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -13067,8 +13072,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 670.8203, y: -268.32816}
-  m_SizeDelta: {x: 447.21356, y: 536.6563}
+  m_AnchoredPosition: {x: 670.8203, y: -248.11815}
+  m_SizeDelta: {x: 447.21356, y: 496.2363}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1440027295
 CanvasRenderer:
@@ -13379,7 +13384,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 734071815}
         m_TargetAssemblyTypeName: Calculator_mode, Assembly-CSharp
-        m_MethodName: app_rate
+        m_MethodName: btn_rate
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -13708,7 +13713,7 @@ MonoBehaviour:
   m_ChildAlignment: 1
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 110, y: 45}
+  m_CellSize: {x: 110, y: 40}
   m_Spacing: {x: 5, y: 5}
   m_Constraint: 1
   m_ConstraintCount: 4
@@ -16963,6 +16968,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5170736565810424378, guid: 03a96ab3934df714c9f607eeba1302ab, type: 3}
+      propertyPath: type_app
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5170736565810424378, guid: 03a96ab3934df714c9f607eeba1302ab, type: 3}
       propertyPath: model_app
       value: 0
       objectReference: {fileID: 0}
@@ -17000,7 +17009,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5170736565810424378, guid: 03a96ab3934df714c9f607eeba1302ab, type: 3}
       propertyPath: color_highlight.rgba
-      value: 4292870337
+      value: 4282515615
       objectReference: {fileID: 0}
     - target: {fileID: 5170736565810424378, guid: 03a96ab3934df714c9f607eeba1302ab, type: 3}
       propertyPath: id_ads_Banner_android
@@ -17022,6 +17031,14 @@ PrefabInstance:
       propertyPath: id_ads_Interstitial_android
       value: ca-app-pub-5388516931803092/2108872836
       objectReference: {fileID: 0}
+    - target: {fileID: 5170736565810424378, guid: 03a96ab3934df714c9f607eeba1302ab, type: 3}
+      propertyPath: emp_btn_remove_ads.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5170736565810424378, guid: 03a96ab3934df714c9f607eeba1302ab, type: 3}
+      propertyPath: emp_btn_remove_ads.Array.data[0]
+      value: 
+      objectReference: {fileID: 2099903401}
     - target: {fileID: 5170736565810424379, guid: 03a96ab3934df714c9f607eeba1302ab, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -17677,8 +17694,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 734071815}
         m_TargetAssemblyTypeName: Calculator_mode, Assembly-CSharp
-        m_MethodName: btn_buy_product
-        m_Mode: 3
+        m_MethodName: btn_remove_ads
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

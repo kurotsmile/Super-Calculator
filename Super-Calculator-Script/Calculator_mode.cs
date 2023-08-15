@@ -7,10 +7,14 @@ public class Calculator_mode : MonoBehaviour
     public App app;
 
     [Header("Setting")]
-    public Sprite icon_light;
+    public Sprite icon_light_on;
+    public Sprite icon_light_off;
     public Sprite icon_theme;
     public Sprite icon_theme_item;
-    public Sprite icon_memo;
+    public Sprite icon_memo_on;
+    public Sprite icon_memo_off;
+    private Carrot.Carrot_Box_Item item_light = null;
+    private Carrot.Carrot_Box_Item item_memo = null;
 
     [Header("Mode Obj")]
     public GameObject panel_memo_bar_portaint;
@@ -70,7 +74,7 @@ public class Calculator_mode : MonoBehaviour
 
     private Carrot.Carrot_Box box_theme = null;
 
-    private void Start()
+    public void load()
     {
         this.sel_mode = PlayerPrefs.GetInt("sel_mode", 0);
 
@@ -129,8 +133,11 @@ public class Calculator_mode : MonoBehaviour
     {
         Carrot.Carrot_Box box_setting=this.app.carrot.Create_Setting();
 
-        Carrot.Carrot_Box_Item item_light=box_setting.create_item("light_item");
-        item_light.set_icon(this.icon_light);
+        this.item_light=box_setting.create_item("light_item");
+        if(this.is_light)
+            item_light.set_icon(this.icon_light_on);
+        else
+            item_light.set_icon(this.icon_light_off);
         item_light.set_title("Backlight");
         item_light.set_tip("Turn off or disable always wake screen mode");
         item_light.set_act(() => this.change_status_light());
@@ -143,8 +150,12 @@ public class Calculator_mode : MonoBehaviour
         item_theme.set_act(()=>this.show_theme());
         item_theme.transform.SetSiblingIndex(1);
 
-        Carrot.Carrot_Box_Item item_memo = box_setting.create_item("item_memo");
-        item_memo.set_icon(this.icon_memo);
+        this.item_memo= box_setting.create_item("item_memo");
+        if (this.is_memo)
+            item_memo.set_icon(this.icon_memo_on);
+        else
+            item_memo.set_icon(this.icon_memo_off);
+
         item_memo.set_title("Memo toolbar");
         item_memo.set_tip("Enable or disable the use of the memo bar");
         item_memo.set_act(() => this.change_status_memo());
@@ -176,9 +187,16 @@ public class Calculator_mode : MonoBehaviour
     private void check_status_light()
     {
         if (this.is_light)
+        {
+            if (this.item_light != null) this.item_light.set_icon(this.icon_light_on);
             Screen.sleepTimeout = (int)SleepTimeout.NeverSleep;
+        }
         else
+        {
+            if (this.item_light != null) this.item_light.set_icon(this.icon_light_off);
             Screen.sleepTimeout = 5000;
+        }
+            
     }
 
     public void change_status_memo()
@@ -205,11 +223,13 @@ public class Calculator_mode : MonoBehaviour
             this.panel_memo_bar_portaint.SetActive(true);
             this.panel_memo_bar_landspace.SetActive(true);
             if (this.sel_mode == 2) this.check_mode();
+            if (this.item_memo != null) this.item_memo.set_icon(this.icon_memo_on);
         }
         else
         {
             this.panel_memo_bar_portaint.SetActive(false);
             this.panel_memo_bar_landspace.SetActive(false);
+            if (this.item_memo != null) this.item_memo.set_icon(this.icon_memo_off);
         }
     }
 
@@ -241,6 +261,7 @@ public class Calculator_mode : MonoBehaviour
 
     public void sel_theme(int index_theme)
     {
+        this.app.carrot.set_color(theme_item[index_theme].color_btn_mode_select);
         this.color_btn_mode_nomal = this.theme_item[index_theme].color_btn_mode_nomal;
         this.color_btn_mode_select = this.theme_item[index_theme].color_btn_mode_select;
         this.color_bk = this.theme_item[index_theme].color_bk;
@@ -378,6 +399,20 @@ public class Calculator_mode : MonoBehaviour
             this.Obj_btn_c.transform.SetParent(this.area_dashboard_landspace_right);
             this.Obj_btn_c.transform.SetSiblingIndex(25);
         }
+    }
 
+    public void btn_rate()
+    {
+        this.app.carrot.show_rate();
+    }
+
+    public void btn_share()
+    {
+        this.app.carrot.show_share();
+    }
+
+    public void btn_remove_ads()
+    {
+        this.app.carrot.buy_inapp_removeads();
     }
 }

@@ -7,7 +7,9 @@ using UnityEngine.UI;
 
 public class App : MonoBehaviour
 {
+    [Header("Obj Main")]
     public Carrot.Carrot carrot;
+    public Calculator_mode mode;
     public Text txt_result_debug;
 
     [Header("Cal Prefab")]
@@ -36,7 +38,8 @@ public class App : MonoBehaviour
     private void Start()
     {
         this.carrot.Load_Carrot();
-        this.GetComponent<Calculator_mode>().check_roate_scene();
+        this.mode.load();
+        this.mode.check_roate_scene();
         this.carrot.clear_contain(this.area_Panel_calculation);
         this.carrot.clear_contain(this.area_Panel_result);
         this.add_number(0);
@@ -181,7 +184,7 @@ public class App : MonoBehaviour
             }
         }
         this.show_func_cal(s_func);
-        this.GetComponent<Calculator_mode>().play_sound(1);
+        this.mode.play_sound(1);
     }
 
 
@@ -788,5 +791,6 @@ public class App : MonoBehaviour
         this.obj_result_error.SetActive(true);
         this.obj_result_error.GetComponent<Image>().color = this.GetComponent<Calculator_mode>().color_digit;
         this.GetComponent<Calculator_mode>().play_sound(3);
+        this.carrot.play_vibrate();
     }
 }

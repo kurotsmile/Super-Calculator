@@ -11,7 +11,6 @@ public class Calculation_history : MonoBehaviour
     [Header("History")]
     public Sprite icon_history;
     public Image img_icon_history;
-    public GameObject prefab_cal_history;
 
     private List<string> h_s_cal=new List<string>();
     private List<string> h_s_rel=new List<string>();
@@ -19,8 +18,9 @@ public class Calculation_history : MonoBehaviour
     [Header("Memo")]
     public Transform area_body_menu_portrait;
     public Transform area_body_menu_landspace;
-    public GameObject memo_item_prefab;
     public Sprite icon_memo;
+    public Sprite icon_memo_summation;
+    public Sprite icon_memo_subtraction;
     public Button[] btn_memo;
 
     private int leng_memo = 0;
@@ -42,6 +42,7 @@ public class Calculation_history : MonoBehaviour
 
     public void show_history()
     {
+        if (this.box != null) this.box.close();
         this.box=this.app.carrot.Create_Box("Calculation History", this.icon_history);
         this.box.set_icon(this.icon_history);
         for (int i = this.h_s_cal.Count-1; i>=0; i--)
@@ -49,7 +50,13 @@ public class Calculation_history : MonoBehaviour
             Carrot.Carrot_Box_Item item_history = this.box.create_item("item_" + i);
             item_history.set_title(this.h_s_cal[i]);
             item_history.set_tip("=" + this.h_s_rel[i]);
+            item_history.set_icon(this.icon_history);
+
+            string s_cal = this.h_s_cal[i];
+            string s_result = this.h_s_rel[i];
+            item_history.set_act(() => this.app.show_history_cal(s_cal, s_result));
         }
+        this.box.update_color_table_row();
     }
 
     public void add_history(string s_cal,string s_result)
@@ -62,20 +69,37 @@ public class Calculation_history : MonoBehaviour
 
     public void show_list_memo()
     {
+        if (this.box != null) this.box.close();
         this.box=this.app.carrot.Create_Box("Memo", this.icon_memo);
         for(int i = this.leng_memo; i>=0; i--)
         {
             if (PlayerPrefs.GetString("memo_" + i, "") != "")
             {
+                var index_memo = i;
                 Carrot.Carrot_Box_Item item_memo = this.box.create_item("item_memo_" + i);
                 item_memo.set_title(PlayerPrefs.GetString("memo_" + i));
-                /*
-                obj_memo.GetComponent<Memo_item>().txt_result.text = ;
-                obj_memo.GetComponent<Memo_item>().index = i;
-                */
+                item_memo.set_tip("Results have been saved");
+                item_memo.set_icon(this.icon_memo);
+                item_memo.set_act(() => this.show_memo(index_memo));
+
+                Carrot.Carrot_Box_Btn_Item btn_summation = item_memo.create_item();
+                btn_summation.set_icon(this.icon_memo_summation);
+                btn_summation.set_color(this.app.carrot.color_highlight);
+                btn_summation.set_act(() => this.memo_summation(index_memo, item_memo));
+
+                Carrot.Carrot_Box_Btn_Item btn_subtraction = item_memo.create_item();
+                btn_subtraction.set_icon(this.icon_memo_subtraction);
+                btn_subtraction.set_color(this.app.carrot.color_highlight);
+                btn_subtraction.set_act(() => this.memo_subtraction(index_memo, item_memo));
+
+                Carrot.Carrot_Box_Btn_Item btn_del=item_memo.create_item();
+                btn_del.set_icon(this.app.carrot.sp_icon_del_data);
+                btn_del.set_act(() => this.del_memo(index_memo));
+                btn_del.set_color(this.app.carrot.color_highlight);
             }
         }
-        this.GetComponent<Calculator_mode>().play_sound(1);
+        this.app.mode.play_sound(1);
+        this.box.update_color_table_row();
     }
 
     public void memo_mc()
@@ -83,27 +107,27 @@ public class Calculation_history : MonoBehaviour
         this.act_btn_mc(false);
         this.leng_memo = 0;
         PlayerPrefs.DeleteKey("leng_memo");
-        this.GetComponent<Calculator_mode>().play_sound(1);
+        this.app.mode.play_sound(1);
     }
 
     public void memo_ms()
     {
-        string s_result = this.GetComponent<App>().get_s_result_for_memo();
+        string s_result = this.app.get_s_result_for_memo();
 
         PlayerPrefs.SetString("memo_" + this.leng_memo, s_result);
         this.sel_index_memo = this.leng_memo;
         this.leng_memo++;
         PlayerPrefs.SetInt("leng_memo", this.leng_memo);
         this.act_btn_mc(true);
-        this.GetComponent<Calculator_mode>().play_sound(1);
+        this.app.mode.play_sound(1);
     }
 
     public void show_memo(int index_show)
     {
         this.sel_index_memo = index_show;
         this.GetComponent<App>().show_result(PlayerPrefs.GetString("memo_" +index_show));
-        this.box.close();
-        this.GetComponent<Calculator_mode>().play_sound(1);
+        if(this.box!=null) this.box.close();
+        this.app.mode.play_sound(1);
     }
 
     public void del_memo(int index_memo)
@@ -112,24 +136,24 @@ public class Calculation_history : MonoBehaviour
         this.show_list_memo();
     }
 
-    public void memo_summation(Memo_item mm_item)
+    public void memo_summation(int index,Carrot.Carrot_Box_Item item_change)
     {
-        string s = PlayerPrefs.GetString("memo_" + mm_item.index);
-        string s_cal_result = this.GetComponent<App>().get_s_result_for_memo();
+        string s = PlayerPrefs.GetString("memo_" + index);
+        string s_cal_result = this.app.get_s_result_for_memo();
         string s_new_result = (int.Parse(s) + int.Parse(s_cal_result)).ToString();
-        PlayerPrefs.SetString("memo_" + mm_item.index, s_new_result);
-        mm_item.txt_result.text = s_new_result;
-        this.GetComponent<Calculator_mode>().play_sound(1);
+        PlayerPrefs.SetString("memo_" + index, s_new_result);
+        item_change.set_title(s_new_result);
+        this.app.mode.play_sound(1);
     }
 
-    public void memo_subtraction(Memo_item mm_item)
+    public void memo_subtraction(int index, Carrot.Carrot_Box_Item item_change)
     {
-        string s = PlayerPrefs.GetString("memo_" + mm_item.index);
-        string s_cal_result = this.GetComponent<App>().get_s_result_for_memo();
+        string s = PlayerPrefs.GetString("memo_" + index);
+        string s_cal_result = this.app.get_s_result_for_memo();
         string s_new_result = (int.Parse(s) - int.Parse(s_cal_result)).ToString();
-        PlayerPrefs.SetString("memo_" + mm_item.index, s_new_result);
-        mm_item.txt_result.text = s_new_result;
-        this.GetComponent<Calculator_mode>().play_sound(1);
+        PlayerPrefs.SetString("memo_" + index, s_new_result);
+        item_change.set_title(s_new_result);
+        this.app.mode.play_sound(1);
     }
 
     public void btn_memo_summation()
@@ -138,11 +162,11 @@ public class Calculation_history : MonoBehaviour
         if (this.sel_index_memo != -1) last_index_memo = this.sel_index_memo;
 
         string s = PlayerPrefs.GetString("memo_" + last_index_memo,"0");
-        string s_cal_result = this.GetComponent<App>().get_s_result_for_memo();
+        string s_cal_result = this.app.get_s_result_for_memo();
         string s_new_result = (int.Parse(s) + int.Parse(s_cal_result)).ToString();
         PlayerPrefs.SetString("memo_" + last_index_memo, s_new_result);
         this.act_btn_mc(true);
-        this.GetComponent<Calculator_mode>().play_sound(1);
+        this.app.mode.play_sound(1);
     }
 
 
@@ -151,17 +175,17 @@ public class Calculation_history : MonoBehaviour
         int last_index_memo = this.leng_memo - 1;
         if (this.sel_index_memo != -1) last_index_memo = this.sel_index_memo;
         string s = PlayerPrefs.GetString("memo_" + last_index_memo,"0");
-        string s_cal_result = this.GetComponent<App>().get_s_result_for_memo();
+        string s_cal_result = this.app.get_s_result_for_memo();
         string s_new_result = (int.Parse(s) - int.Parse(s_cal_result)).ToString();
         PlayerPrefs.SetString("memo_" + last_index_memo, s_new_result);
         this.act_btn_mc(true);
-        this.GetComponent<Calculator_mode>().play_sound(1);
+        this.app.mode.play_sound(1);
     }
 
     public void btn_memo_recall()
     {
-        this.GetComponent<App>().show_result(PlayerPrefs.GetString("memo_" + (this.leng_memo-1)));
-        this.GetComponent<Calculator_mode>().play_sound(1);
+        this.app.show_result(PlayerPrefs.GetString("memo_" + (this.leng_memo-1)));
+        this.app.mode.play_sound(1);
     }
 
     private void act_btn_mc(bool is_act)
