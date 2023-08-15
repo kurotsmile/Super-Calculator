@@ -356,7 +356,7 @@ public class Calculator_mode : MonoBehaviour
             r.pivot = new Vector2(0.5f, 1f);
             r.offsetMin = new Vector2(5, r.offsetMin.y);
             r.offsetMax = new Vector2(-5, r.offsetMax.y);
-            r.offsetMax = new Vector2(r.offsetMax.x, -55f);
+            r.offsetMax = new Vector2(r.offsetMax.x, -68f);
             r.offsetMin = new Vector2(r.offsetMin.x, -213.4f);
 
             for (int i = 0; i < this.Obj_img_btn.Length; i++) this.Obj_img_btn[i].transform.SetParent(this.area_dashboard_portaint);
