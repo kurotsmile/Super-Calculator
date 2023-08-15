@@ -26,6 +26,7 @@ public class Calculator_mode : MonoBehaviour
     public AudioSource[] sound;
 
     [Header("Theme")]
+    public Sprite icon_cart;
     public Theme_Item[] theme_item;
     public string[] theme_name;
     public string[] theme_tip;
@@ -71,6 +72,7 @@ public class Calculator_mode : MonoBehaviour
     private int sel_mode = 0;
     private bool is_light=true;
     private bool is_memo = true;
+    private int index_buy_theme = -1;
 
     private Carrot.Carrot_Box box_theme = null;
 
@@ -247,7 +249,37 @@ public class Calculator_mode : MonoBehaviour
             item_theme.set_title(this.theme_name[i]);
             item_theme.set_tip(this.theme_tip[i]);
             item_theme.set_icon(this.icon_theme_item);
-            item_theme.set_act(() => this.item_sel_theme(index_theme));
+
+            if(PlayerPrefs.GetInt("buy_theme_" + i) != 1)
+            {
+                if (this.theme_item[i].is_buy)
+                {
+                    item_theme.set_act(() => this.sel_item_buy_theme(index_theme));
+
+                    Carrot.Carrot_Box_Btn_Item btn_buy = item_theme.create_item();
+                    btn_buy.set_icon(this.icon_cart);
+                    btn_buy.set_icon_color(Color.white);
+                    btn_buy.set_color(this.app.carrot.color_highlight);
+                    Destroy(btn_buy.GetComponent<Button>());
+                }
+                else
+                {
+                    item_theme.set_act(() => this.item_sel_theme(index_theme));
+                }
+            }
+            else
+            {
+                item_theme.set_act(() => this.item_sel_theme(index_theme));
+            }
+
+            if (this.sel_index_theme == i)
+            {
+                Carrot.Carrot_Box_Btn_Item btn_check = item_theme.create_item();
+                btn_check.set_color(this.app.carrot.color_highlight);
+                btn_check.set_icon(this.app.carrot.icon_carrot_done);
+                Destroy(btn_check.GetComponent<Button>());
+            }
+   
         }
     }
 
@@ -414,5 +446,26 @@ public class Calculator_mode : MonoBehaviour
     public void btn_remove_ads()
     {
         this.app.carrot.buy_inapp_removeads();
+    }
+
+    private void sel_item_buy_theme(int index_theme)
+    {
+        this.index_buy_theme = index_theme;
+        this.app.carrot.buy_product(2);
+    }
+
+    public void pay_success(string s_id)
+    {
+        if (s_id == this.app.carrot.shop.get_id_by_index(2))
+        {
+            if (this.index_buy_theme != -1)
+            {
+                PlayerPrefs.SetInt("buy_theme_" + this.index_buy_theme, 1);
+                this.sel_theme(this.index_buy_theme);
+                this.app.carrot.show_msg("Theme", "Buy skins for pocket calculator successfully!", Carrot.Msg_Icon.Success);
+                this.index_buy_theme = -1;
+                if (this.box_theme != null) this.box_theme.close();
+            }
+        }
     }
 }

@@ -17,4 +17,6 @@ public class Theme_Item : MonoBehaviour
     public Color32 color_btn_result;
     public Color32 color_btn_c;
     public Color32 color_btn_number;
+
+    public bool is_buy;
 }

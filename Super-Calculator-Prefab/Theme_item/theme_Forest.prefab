@@ -89,3 +89,4 @@ MonoBehaviour:
   color_btn_number:
     serializedVersion: 2
     rgba: 4278204160
+  is_buy: 1

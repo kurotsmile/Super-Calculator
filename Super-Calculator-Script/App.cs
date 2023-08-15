@@ -38,6 +38,7 @@ public class App : MonoBehaviour
     private void Start()
     {
         this.carrot.Load_Carrot();
+        this.carrot.shop.onCarrotPaySuccess += this.mode.pay_success;
         this.mode.load();
         this.mode.check_roate_scene();
         this.carrot.clear_contain(this.area_Panel_calculation);
