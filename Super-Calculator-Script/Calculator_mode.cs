@@ -9,6 +9,7 @@ public class Calculator_mode : MonoBehaviour
     [Header("Setting")]
     public Sprite icon_light;
     public Sprite icon_theme;
+    public Sprite icon_theme_item;
     public Sprite icon_memo;
 
     [Header("Mode Obj")]
@@ -21,8 +22,9 @@ public class Calculator_mode : MonoBehaviour
     public AudioSource[] sound;
 
     [Header("Theme")]
-    public GameObject panel_theme;
     public Theme_Item[] theme_item;
+    public string[] theme_name;
+    public string[] theme_tip;
     public Color32 color_btn_mode_nomal;
     public Color32 color_btn_mode_select;
     public Color32 color_btn_mode_txt;
@@ -66,6 +68,8 @@ public class Calculator_mode : MonoBehaviour
     private bool is_light=true;
     private bool is_memo = true;
 
+    private Carrot.Carrot_Box box_theme = null;
+
     private void Start()
     {
         this.sel_mode = PlayerPrefs.GetInt("sel_mode", 0);
@@ -78,7 +82,6 @@ public class Calculator_mode : MonoBehaviour
 
         if (PlayerPrefs.GetInt("is_memo", 1) == 0) this.is_memo = true; else this.is_memo = false;
         this.check_status_memo();
-        this.panel_theme.SetActive(false);
     }
 
     public void select_mod(int index_mode)
@@ -136,15 +139,15 @@ public class Calculator_mode : MonoBehaviour
         Carrot.Carrot_Box_Item item_theme = box_setting.create_item("item_theme");
         item_theme.set_icon(this.icon_theme);
         item_theme.set_title("Pocket calculator theme");
-        item_theme.set_title("Change the look of the app to your liking");
+        item_theme.set_tip("Change the look of the app to your liking");
         item_theme.set_act(()=>this.show_theme());
         item_theme.transform.SetSiblingIndex(1);
 
         Carrot.Carrot_Box_Item item_memo = box_setting.create_item("item_memo");
         item_memo.set_icon(this.icon_memo);
         item_memo.set_title("Memo toolbar");
-        item_memo.set_title("Enable or disable the use of the memo bar");
-        item_memo.set_act(() => this.show_theme());
+        item_memo.set_tip("Enable or disable the use of the memo bar");
+        item_memo.set_act(() => this.change_status_memo());
         item_memo.transform.SetSiblingIndex(2);
     }
 
@@ -152,7 +155,6 @@ public class Calculator_mode : MonoBehaviour
     {
         if(this.app.carrot.get_status_sound()) this.sound[index_sound].Play();
     }
-
 
     public void change_status_light()
     {
@@ -174,13 +176,9 @@ public class Calculator_mode : MonoBehaviour
     private void check_status_light()
     {
         if (this.is_light)
-        {
             Screen.sleepTimeout = (int)SleepTimeout.NeverSleep;
-        }
         else
-        {
             Screen.sleepTimeout = 5000;
-        }
     }
 
     public void change_status_memo()
@@ -215,34 +213,30 @@ public class Calculator_mode : MonoBehaviour
         }
     }
 
-
-    public void check_exit_app()
+    public void show_theme()
     {
-        if (this.panel_theme.activeInHierarchy)
+        this.play_sound(1);
+        this.box_theme = this.app.carrot.Create_Box();
+        this.box_theme.set_title("Pocket Calculator Theme");
+        this.box_theme.set_icon(this.icon_theme);
+
+        for(int i = 0; i < this.theme_name.Length; i++)
         {
-            this.close_theme();
-            this.app.carrot.set_no_check_exit_app();
+            var index_theme = i;
+            Carrot.Carrot_Box_Item item_theme=this.box_theme.create_item("item_theme_" + i);
+            item_theme.set_title(this.theme_name[i]);
+            item_theme.set_tip(this.theme_tip[i]);
+            item_theme.set_icon(this.icon_theme_item);
+            item_theme.set_act(() => this.item_sel_theme(index_theme));
         }
     }
 
-    public void show_theme()
-    {
-        this.panel_theme.SetActive(true);
-        this.play_sound(1);
-    }
-
-    public void close_theme()
-    {
-        this.panel_theme.SetActive(false);
-        this.play_sound(1);
-    }
-
-    public void btn_sel_theme(int index_theme)
+    private void item_sel_theme(int index_theme)
     {
         PlayerPrefs.SetInt("sel_index_theme",index_theme);
         this.sel_theme(index_theme);
         this.play_sound(1);
-        this.panel_theme.SetActive(false);
+        if (this.box_theme != null) this.box_theme.close();
     }
 
     public void sel_theme(int index_theme)

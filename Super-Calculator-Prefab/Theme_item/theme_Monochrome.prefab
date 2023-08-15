@@ -1,0 +1,91 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3112160256433923309
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2459413603803591721}
+  - component: {fileID: 2548756917878198941}
+  m_Layer: 5
+  m_Name: theme_Monochrome
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2459413603803591721
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3112160256433923309}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2548756917878198941
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3112160256433923309}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0c3a7c69c174ee41ae8669475923f52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  color_btn_mode_nomal:
+    serializedVersion: 2
+    rgba: 4282598211
+  color_btn_mode_select:
+    serializedVersion: 2
+    rgba: 4278190080
+  color_bk:
+    serializedVersion: 2
+    rgba: 4294967295
+  color_menu_bar:
+    serializedVersion: 2
+    rgba: 4288782753
+  color_dashboard:
+    serializedVersion: 2
+    rgba: 4294967295
+  color_btn:
+    serializedVersion: 2
+    rgba: 4294967295
+  color_btn_txt:
+    serializedVersion: 2
+    rgba: 4278190080
+  color_btn_txt_tip:
+    serializedVersion: 2
+    rgba: 4279900698
+  color_bk_show:
+    serializedVersion: 2
+    rgba: 4288782753
+  color_bk_calculation:
+    serializedVersion: 2
+    rgba: 4294967295
+  color_bk_result:
+    serializedVersion: 2
+    rgba: 4294967295
+  color_digit:
+    serializedVersion: 2
+    rgba: 4278190080
+  color_btn_result:
+    serializedVersion: 2
+    rgba: 4278190080
+  color_btn_c:
+    serializedVersion: 2
+    rgba: 4280427042
+  color_btn_number:
+    serializedVersion: 2
+    rgba: 4282006074

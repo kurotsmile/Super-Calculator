@@ -35,7 +35,7 @@ public class App : MonoBehaviour
 
     private void Start()
     {
-        this.carrot.Load_Carrot(this.GetComponent<Calculator_mode>().check_exit_app);
+        this.carrot.Load_Carrot();
         this.GetComponent<Calculator_mode>().check_roate_scene();
         this.carrot.clear_contain(this.area_Panel_calculation);
         this.carrot.clear_contain(this.area_Panel_result);
