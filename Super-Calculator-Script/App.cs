@@ -25,6 +25,9 @@ public class App : MonoBehaviour
     public Transform area_Panel_calculation;
     public GameObject obj_result_error;
 
+    [Header("Sound")]
+    public AudioSource sound_background;
+
     private List<GameObject> n_1 = new List<GameObject>();
     private bool is_zero = true;
     private bool is_negative = false;
@@ -39,6 +42,8 @@ public class App : MonoBehaviour
     {
         this.carrot.Load_Carrot();
         this.carrot.shop.onCarrotPaySuccess += this.mode.pay_success;
+        this.carrot.game.load_bk_music(this.sound_background);
+
         this.mode.load();
         this.mode.check_roate_scene();
         this.carrot.clear_contain(this.area_Panel_calculation);

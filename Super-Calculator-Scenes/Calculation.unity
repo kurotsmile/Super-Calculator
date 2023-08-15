@@ -4313,7 +4313,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 491.23}
+  m_SizeDelta: {x: 0, y: 550}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &585102795
 CanvasRenderer:
@@ -4585,8 +4585,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 463940697}
   m_HandleRect: {fileID: 463940696}
   m_Direction: 2
-  m_Value: 0.49999827
-  m_Size: 0.98246
+  m_Value: 0.50000006
+  m_Size: 0.5527639
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -6116,6 +6116,7 @@ MonoBehaviour:
   area_Panel_result: {fileID: 20397827}
   area_Panel_calculation: {fileID: 69714415}
   obj_result_error: {fileID: 1690115872}
+  sound_background: {fileID: 1427747028}
 --- !u!114 &734071814
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9180,8 +9181,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -15}
+  m_SizeDelta: {x: 0, y: -30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1110654203
 MonoBehaviour:
