@@ -20982,12 +20982,28 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5170736565810424378, guid: 03a96ab3934df714c9f607eeba1302ab, type: 3}
+      propertyPath: setting_lang
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5170736565810424378, guid: 03a96ab3934df714c9f607eeba1302ab, type: 3}
       propertyPath: store_public
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5170736565810424378, guid: 03a96ab3934df714c9f607eeba1302ab, type: 3}
+      propertyPath: setting_login
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5170736565810424378, guid: 03a96ab3934df714c9f607eeba1302ab, type: 3}
       propertyPath: link_share_app
       value: https://carrotstore.com/p/Super-Calculator-apk
+      objectReference: {fileID: 0}
+    - target: {fileID: 5170736565810424378, guid: 03a96ab3934df714c9f607eeba1302ab, type: 3}
+      propertyPath: setting_vibrate
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5170736565810424378, guid: 03a96ab3934df714c9f607eeba1302ab, type: 3}
+      propertyPath: setting_soundtrack
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5170736565810424378, guid: 03a96ab3934df714c9f607eeba1302ab, type: 3}
       propertyPath: index_inapp_remove_ads

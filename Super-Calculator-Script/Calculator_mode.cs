@@ -131,16 +131,21 @@ public class Calculator_mode : MonoBehaviour
         item_light.set_title("Backlight");
         item_light.set_tip("Turn off or disable always wake screen mode");
         item_light.set_act(() => this.change_status_light());
+        item_light.transform.SetSiblingIndex(0);
 
         Carrot.Carrot_Box_Item item_theme = box_setting.create_item("item_theme");
+        item_theme.set_icon(this.icon_theme);
         item_theme.set_title("Pocket calculator theme");
         item_theme.set_title("Change the look of the app to your liking");
         item_theme.set_act(()=>this.show_theme());
+        item_theme.transform.SetSiblingIndex(1);
 
         Carrot.Carrot_Box_Item item_memo = box_setting.create_item("item_memo");
-        item_theme.set_title("Memo toolbar");
-        item_theme.set_title("Enable or disable the use of the memo bar");
-        item_theme.set_act(() => this.show_theme());
+        item_memo.set_icon(this.icon_memo);
+        item_memo.set_title("Memo toolbar");
+        item_memo.set_title("Enable or disable the use of the memo bar");
+        item_memo.set_act(() => this.show_theme());
+        item_memo.transform.SetSiblingIndex(2);
     }
 
     public void play_sound(int index_sound)
