@@ -462,7 +462,7 @@ public class Calculator_mode : MonoBehaviour
             {
                 PlayerPrefs.SetInt("buy_theme_" + this.index_buy_theme, 1);
                 this.sel_theme(this.index_buy_theme);
-                this.app.carrot.show_msg("Theme", "Buy skins for pocket calculator successfully!", Carrot.Msg_Icon.Success);
+                this.app.carrot.Show_msg("Theme", "Buy skins for pocket calculator successfully!", Carrot.Msg_Icon.Success);
                 this.index_buy_theme = -1;
                 if (this.box_theme != null) this.box_theme.close();
             }

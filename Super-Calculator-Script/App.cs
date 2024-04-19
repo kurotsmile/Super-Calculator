@@ -784,7 +784,7 @@ public class App : MonoBehaviour
     public void delete_all_data()
     {
         PlayerPrefs.DeleteAll();
-        this.carrot.delete_all_data();
+        this.carrot.Delete_all_data();
     }
 
     public void set_roate_scene(bool is_portrait)
