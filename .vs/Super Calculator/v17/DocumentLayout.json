@@ -1,0 +1,54 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "J:\\Unity3d Project\\Super Calculator\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{79DF23D1-CFC2-B1E0-F0C1-49CB96DB614B}|Assembly-CSharp.csproj|j:\\unity3d project\\super calculator\\assets\\super-calculator\\super-calculator-script\\app.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{79DF23D1-CFC2-B1E0-F0C1-49CB96DB614B}|Assembly-CSharp.csproj|solutionrelative:assets\\super-calculator\\super-calculator-script\\app.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{79DF23D1-CFC2-B1E0-F0C1-49CB96DB614B}|Assembly-CSharp.csproj|j:\\unity3d project\\super calculator\\assets\\super-calculator\\super-calculator-script\\calculator_mode.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{79DF23D1-CFC2-B1E0-F0C1-49CB96DB614B}|Assembly-CSharp.csproj|solutionrelative:assets\\super-calculator\\super-calculator-script\\calculator_mode.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "App.cs",
+              "DocumentMoniker": "J:\\Unity3d Project\\Super Calculator\\Assets\\Super-Calculator\\Super-Calculator-Script\\App.cs",
+              "RelativeDocumentMoniker": "Assets\\Super-Calculator\\Super-Calculator-Script\\App.cs",
+              "ToolTip": "J:\\Unity3d Project\\Super Calculator\\Assets\\Super-Calculator\\Super-Calculator-Script\\App.cs",
+              "RelativeToolTip": "Assets\\Super-Calculator\\Super-Calculator-Script\\App.cs",
+              "ViewState": "AQIAAPwCAAAAAAAAAAAuwA8DAAAhAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-19T08:08:12.188Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Calculator_mode.cs",
+              "DocumentMoniker": "J:\\Unity3d Project\\Super Calculator\\Assets\\Super-Calculator\\Super-Calculator-Script\\Calculator_mode.cs",
+              "RelativeDocumentMoniker": "Assets\\Super-Calculator\\Super-Calculator-Script\\Calculator_mode.cs",
+              "ToolTip": "J:\\Unity3d Project\\Super Calculator\\Assets\\Super-Calculator\\Super-Calculator-Script\\Calculator_mode.cs",
+              "RelativeToolTip": "Assets\\Super-Calculator\\Super-Calculator-Script\\Calculator_mode.cs",
+              "ViewState": "AQIAALMBAAAAAAAAAAAQwMIBAAA0AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-19T08:07:48.737Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
